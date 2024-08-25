@@ -1,0 +1,137 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2fh3gkxnfy0b"]
+
+[ext_resource type="Texture2D" uid="uid://cr2mm0c5pxtci" path="res://images/automations/coffeemaker.webp" id="1_eqlsl"]
+[ext_resource type="Script" path="res://resource_generators.gd" id="1_l1xc3"]
+
+[node name="ResourceGenerators" type="Control" node_paths=PackedStringArray("name_label", "qty_label", "description_label", "effect_label", "resource_timer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l1xc3")
+name_label = NodePath("MarginContainer/Vertical Split/MarginContainer/id_row/name")
+qty_label = NodePath("MarginContainer/Vertical Split/MarginContainer/id_row/qty")
+description_label = NodePath("MarginContainer/Vertical Split/description_row/HBoxContainer/description")
+effect_label = NodePath("MarginContainer/Vertical Split/description_row/HBoxContainer/effect")
+resource_timer = NodePath("Timer")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Vertical Split" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Vertical Split"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="id_row" type="HBoxContainer" parent="MarginContainer/Vertical Split/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="image" type="TextureRect" parent="MarginContainer/Vertical Split/MarginContainer/id_row"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("1_eqlsl")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="name" type="Label" parent="MarginContainer/Vertical Split/MarginContainer/id_row"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="qty" type="Label" parent="MarginContainer/Vertical Split/MarginContainer/id_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "86"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="description_row" type="HBoxContainer" parent="MarginContainer/Vertical Split"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Vertical Split/description_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="description" type="Label" parent="MarginContainer/Vertical Split/description_row/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Description of the thing
+"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="effect" type="Label" parent="MarginContainer/Vertical Split/description_row/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "-10int/+60cm/s
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="buy_buttons" type="HBoxContainer" parent="MarginContainer/Vertical Split"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="buy1" type="Button" parent="MarginContainer/Vertical Split/buy_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Buy 1"
+
+[node name="buy10" type="Button" parent="MarginContainer/Vertical Split/buy_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Buy 10"
+
+[node name="buy100" type="Button" parent="MarginContainer/Vertical Split/buy_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Buy 100"
+
+[node name="buymax" type="Button" parent="MarginContainer/Vertical Split/buy_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Buy Max"
+
+[node name="stop" type="Button" parent="MarginContainer/Vertical Split/buy_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stop"
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="pressed" from="MarginContainer/Vertical Split/buy_buttons/buy1" to="." method="_on_buy_1_pressed"]
+[connection signal="pressed" from="MarginContainer/Vertical Split/buy_buttons/buy10" to="." method="_on_buy_10_pressed"]
+[connection signal="pressed" from="MarginContainer/Vertical Split/buy_buttons/buy100" to="." method="_on_buy_100_pressed"]
+[connection signal="pressed" from="MarginContainer/Vertical Split/buy_buttons/buymax" to="." method="_on_buymax_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_tick"]
